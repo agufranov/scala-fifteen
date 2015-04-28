@@ -37,15 +37,17 @@ object AStar {
     /** Поиск пути из узла @param startNode в узел @param terminalNode по алгоритму A* */
     def Solve[T, TNode <: Node[T, TNode]](startNode: TNode, terminalNode: TNode) = {
         /* Список открытых узлов */
-        val open = ArrayBuffer[TNode](startNode)
+        val open = HashSet[TNode](startNode)
         /* Список закрытых узлов */
-        val closed = ArrayBuffer[TNode]()
+        val closed = HashSet[TNode]()
         /* Индикатор выхода из цикла обхода */
         var break = false
         var node = startNode
+        var k = 0
 
         /* Цикл обхода графа */
         while(!open.isEmpty && !break) {
+            k += 1
             /* Проверка на достижение целевого узла */
             if(node == terminalNode) break = true
             else {
@@ -81,6 +83,8 @@ object AStar {
             solution.push(node.Value)
             node = node.Parent
         }
+        println("Iterations: " + k)
+        println("Length: " + solution.length)
         solution
     }
 }

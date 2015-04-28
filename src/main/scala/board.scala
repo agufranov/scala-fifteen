@@ -82,7 +82,7 @@ class Board private (val Grid: Seq[Seq[Int]]) {
         case _ => false
     }
 
-    override def hashCode = Grid.hashCode
+    override def hashCode = EmptyPos.hashCode + Grid.hashCode
 }
 
 object Board {
@@ -120,6 +120,8 @@ object Board {
         case x +: xs => xs.filter(_x => _x < x && x != EmptyVal).length + inversionsCount(xs, emptyPos)
         case _ => 0
     }
+
+    def Debug = new Board(util.slice2d(Array(1, 7, 2, 3, 9, 5, 4, 6, 8), Size))
 
     /** Случайное игровое поле с гарантией решаемости */
     def Random: Board = {
